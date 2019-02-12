@@ -1,0 +1,48 @@
+{
+  "name": "cubix-2048",
+  "version": "1.0.0",
+  "description": "React remake of https://github.com/Kshitij-Banerjee/Cubiks-2048",
+  "main": "app/index.tsx",
+  "scripts": {
+    "test": "jest",
+    "~test": "jest --watchAll",
+    "start": "webpack-dev-server --config webpack.dev.js --hot",
+    "build": "webpack --config webpack.prod.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Grimalkin8675/cubix-2048.git"
+  },
+  "author": "Grimalkin8675",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^24.0.1",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.9.1",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.5",
+    "webpack-dev-server": "^3.1.14"
+  },
+  "dependencies": {
+    "@types/react": "^16.8.2",
+    "@types/react-dom": "^16.8.0",
+    "autoprefixer": "^9.4.7",
+    "awesome-typescript-loader": "^5.2.1",
+    "html-webpack-plugin": "^3.2.0",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-loader": "^3.5.4",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.3.3",
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.2.3",
+    "webpack-merge": "^4.2.1"
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "IE 10"
+  ]
+}
