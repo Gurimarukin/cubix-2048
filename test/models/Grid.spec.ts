@@ -1,3 +1,5 @@
+import { times } from 'lodash';
+
 import Grid from '../../app/models/Grid';
 import Direction from '../../app/models/Direction';
 import Cubes from '../../app/models/Cubes';
@@ -67,12 +69,24 @@ describe(Grid.prototype.upperFree, () => {
 describe(Grid.prototype.addRandomCubes, () => {
 
     it('should return a new Grid with 2 new cubes', () => {
-        const grid = new Grid().addRandomCubes();
+        times(100, () => {
+            const grid = new Grid().addRandomCubes();
 
-        expect(grid.cubes.size()).toBe(2);
+            expect(grid.cubes.size()).toBe(2);
 
-        grid.cubes.cubes.forEach(cube => {
-            expect(cube.coord.y).toBe(0);
+            const bottomCube =
+                grid.cubes.cubes.find(cube => cube.coord.y === 0);
+            const middleCube =
+                grid.cubes.cubes.find(cube => cube.coord.y === 1);
+
+            if (bottomCube !== undefined && middleCube !== undefined) {
+                expect(bottomCube.coord.x).toBe(middleCube.coord.x);
+                expect(bottomCube.coord.z).toBe(middleCube.coord.z);
+            } else {
+                grid.cubes.cubes.forEach(cube => {
+                    expect(cube.coord.y).toBe(0);
+                });
+            }
         });
     });
 

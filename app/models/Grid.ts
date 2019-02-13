@@ -1,10 +1,10 @@
-import * as _ from 'lodash';
+import { times } from 'lodash';
 
 import Cubes from './Cubes';
 import Direction from './Direction';
 import Coord from './Coord';
 
-import { randomIndex } from '../utils';
+import { randomElement } from '../utils';
 import Cube from './Cube';
 
 
@@ -17,18 +17,15 @@ export default class Grid {
         this.gravity = gravity;
     }
 
-    addRandomCubes(): Grid {
-        const freeTop = this.freeTop();
+    addRandomCubes(n: number=2): Grid {
+        return times(n).reduce((grid: Grid) => grid.addRandomCube(), this);
+    }
 
-        const i1 = randomIndex(freeTop);
-        let i2: number;
-        do { i2 = randomIndex(freeTop); } while (i1 === i2);
+    addRandomCube(): Grid {
+        const coord = randomElement(this.freeTop());
 
         return new Grid(
-            this.cubes.add(
-                new Cube(Math.random() < 0.9 ? 2 : 4, freeTop[i1]),
-                new Cube(Math.random() < 0.9 ? 2 : 4, freeTop[i2])
-            ),
+            this.cubes.add(new Cube(Math.random() < 0.9 ? 2 : 4, coord)),
             this.gravity
         );
     }

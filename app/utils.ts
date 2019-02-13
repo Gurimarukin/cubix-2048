@@ -7,5 +7,5 @@ export const todo = (): never => { throw Error('not implemented yet'); };
 export const equals = (a: any) => (b: any): boolean => isEqual(a, b);
 
 
-export const randomIndex =
-    (array: any[]): number => Math.floor(Math.random() * array.length);
+export const randomElement = <T>(array: T[]): T =>
+    array[Math.floor(Math.random() * array.length)];
