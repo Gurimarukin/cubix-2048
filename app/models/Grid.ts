@@ -1,11 +1,11 @@
 import { times } from 'lodash';
 
+import Cube from './Cube';
 import Cubes from './Cubes';
 import Direction from './Direction';
 import Coord from './Coord';
 
 import { randomElement } from '../utils';
-import Cube from './Cube';
 
 
 export default class Grid {
@@ -32,7 +32,7 @@ export default class Grid {
 
     freeTop(): Coord[] {
         const frees: Array<Coord | undefined> =
-            this.gravity.bottom().map(this.upperFree);
+            this.gravity.bottomSlots().map(this.upperFree);
 
         return frees.filter(coord => coord !== undefined) as Coord[];
     }
@@ -41,13 +41,13 @@ export default class Grid {
     upperFree = (coord: Coord): Coord | undefined => {
         if (this.cubes.cubeByCoord(coord) === undefined) return coord;
 
-        const above = this.above(coord);
+        const above = this.currentAbove(coord);
         if (above === undefined) return undefined;
 
         return this.upperFree(above);
     }
 
-    above(coord: Coord): Coord | undefined {
+    currentAbove(coord: Coord): Coord | undefined {
         const res = new Coord(
             coord.x - this.gravity.x,
             coord.y - this.gravity.y,
@@ -55,5 +55,9 @@ export default class Grid {
         );
         if (res.isValid()) return res;
         return undefined;
+    }
+
+    rotate(newGravity: Direction): Grid {
+        return new Grid(this.cubes, newGravity);
     }
 }

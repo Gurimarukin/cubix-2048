@@ -22,4 +22,8 @@ export default class Cubes {
     add(...cubes: Cube[]): Cubes {
         return new Cubes(...this.cubes, ...cubes);
     }
+
+    map<T>(f: (cube: Cube, i: number) => T): T[] {
+        return this.cubes.map(f);
+    }
 }

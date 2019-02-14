@@ -1,0 +1,63 @@
+/* .floor { background-color: #cdc1b4; } */
+
+.scene {
+    height: 80vh;
+    width: 80vw;
+    perspective: 1000px;
+    perspective-origin: center top;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid {
+    width: var(--grid-size);
+    height: var(--grid-size);
+    transform-style: preserve-3d;
+    position: absolute;
+    user-select: none;
+    transition: transform 0.5s linear;
+}
+
+.borders {
+    position: absolute;
+    transform-style: preserve-3d;
+}
+
+.border {
+    width: var(--grid-size);
+    height: var(--grid-size);
+    position: absolute;
+    border: 1px solid black;
+}
+
+.border-front {
+    composes: border;
+    transform: translateZ(calc(var(--grid-size) / 2));
+}
+
+.border-top {
+    composes: border;
+    transform: rotateX(90deg) translateZ(calc(var(--grid-size) / 2));
+}
+
+.border-right {
+    composes: border;
+    transform: rotateY(90deg) translateZ(calc(var(--grid-size) / 2));
+}
+
+.border-left {
+    composes: border;
+    transform: rotateY(-90deg) translateZ(calc(var(--grid-size) / 2));
+}
+
+.border-bottom {
+    composes: border;
+    transform: rotateX(-90deg) translateZ(calc(var(--grid-size) / 2));
+}
+
+.border-back {
+    composes: border;
+    transform: rotateY(-180deg) translateZ(calc(var(--grid-size) / 2));
+}
