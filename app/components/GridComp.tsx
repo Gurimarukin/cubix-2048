@@ -5,13 +5,17 @@ import * as styles from './styles/GridComp.css';
 import CubeComp from './CubeComp';
 
 import Grid from '../models/Grid';
-import Direction from '../models/Direction';
+import Cube from '../models/Cube';
+import Coord from '../models/Coord';
+
+import Matrix from '../lib/Matrix';
 
 import config from '../config';
 
 
 interface IProps {
     grid: Grid;
+    transform: string;
 }
 
 export default class GridComp extends React.Component<IProps> {
@@ -29,9 +33,7 @@ export default class GridComp extends React.Component<IProps> {
                 </style>
 
                 <div className={styles.grid}
-                     style={{
-                         transform: this.transformFromGravityAndFront()
-                     }}>
+                     style={{ transform: this.props.transform }}>
                     <div className={styles.borders}>
                         <div className={styles.borderFront} />
                         <div className={styles.borderTop} />
@@ -41,21 +43,28 @@ export default class GridComp extends React.Component<IProps> {
                         <div className={styles.borderBack} />
                     </div>
 
-                    {this.props.grid.cubes.map((cube, i) =>
-                        <CubeComp key={i} cube={cube} />)}
+                    {this.props.grid.cubes.map(this.cubeInBrowerBasis)}
                 </div>
             </div>
         );
     }
 
-    private transformFromGravityAndFront(): string {
-        const gravity = this.props.grid.gravity;
-
-        if (gravity === Direction.RIGHT) return 'rotateZ(90deg)';
-        if (gravity === Direction.LEFT)  return 'rotateZ(-90deg)';
-        if (gravity === Direction.BACK)  return 'rotateX(90deg)';
-        if (gravity === Direction.FRONT) return 'rotateX(-90deg)';
-        if (gravity === Direction.TOP)   return 'rotateX(180deg)';
-        /* Direction.BOTTOM */           return 'rotateX(0)';
+    private cubeInBrowerBasis = (cube: Cube, i: number): JSX.Element => {
+        const toBrowserBasis = new Matrix(
+            [1, 0,  0],
+            [0, 0, -1],
+            [0, 1,  0]
+        );
+        const oldCoord = new Matrix(
+            [cube.coord.x],
+            [-cube.coord.y + 1],
+            [cube.coord.z - 2],
+        );
+        const newCoord = toBrowserBasis.multiply(oldCoord).data;
+        const res = new Cube(
+            cube.value,
+            new Coord(newCoord[0][0], newCoord[1][0], newCoord[2][0])
+        );
+        return <CubeComp key={i} cube={res} />;
     }
 }

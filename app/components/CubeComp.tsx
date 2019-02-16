@@ -44,15 +44,21 @@ export default class CubeComp extends React.Component<IProps> {
     }
 
     private transformFromCoord(): string {
-        const coord = this.props.cube.coord;
+        // const coord = this.props.cube.coord;
         const s = config.cubeSize;
         const m = config.cubeMargin;
         const mPs = m + s;
 
-        const x = coord.x * mPs + m;
-        const y = coord.y * -mPs + 3 * m + 2 * s;
-        const z = coord.z * -mPs + 1 * m + 1 * s;
+        // const x = coord.x * mPs + m;
+        // const y = coord.z * -mPs + 2 * s + 3 * m;
+        // const z = coord.y * -mPs + 1 * s + 2 * m;
+        // const y = coord.z * mPs + m;
+        // const z = coord.y * mPs + m;
 
-        return `translate3D(${x}px, ${y}px, ${z}px)`;
+        const res = this.props.cube.coord
+            .map(coord => `${coord * mPs + m}px`)
+            .join(', ');
+
+        return `translate3D(${res})`;
     }
 }

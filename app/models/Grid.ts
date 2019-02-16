@@ -2,17 +2,21 @@ import { times } from 'lodash';
 
 import Cube from './Cube';
 import Cubes from './Cubes';
-import Direction from './Direction';
+import OrthoVect from './OrthoVect';
 import Coord from './Coord';
 
 import { randomElement } from '../utils';
 
 
 export default class Grid {
-    cubes: Cubes;
-    gravity: Direction;
+    static empty(): Grid {
+        return new Grid(new Cubes(), OrthoVect.BOTTOM);
+    }
 
-    constructor (cubes=new Cubes(), gravity=Direction.BOTTOM) {
+    cubes: Cubes;
+    gravity: OrthoVect;
+
+    private constructor (cubes: Cubes, gravity: OrthoVect) {
         this.cubes = cubes;
         this.gravity = gravity;
     }
@@ -57,7 +61,7 @@ export default class Grid {
         return undefined;
     }
 
-    rotate(newGravity: Direction): Grid {
+    rotate(newGravity: OrthoVect): Grid {
         return new Grid(this.cubes, newGravity);
     }
 }

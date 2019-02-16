@@ -9,4 +9,8 @@ export default class Cube {
         this.value = value;
         this.coord = coord;
     }
+
+    toString(): string {
+        return `Cube(${this.value}, ${this.coord})`;
+    }
 }
