@@ -3,7 +3,7 @@ import OrthoVect from '../../app/models/OrthoVect';
 import Coord from '../../app/models/Coord';
 
 
-describe(OrthoVect.prototype.bottomSlots, () => {
+describe('OrthoVect.bottomSlots', () => {
     it('should return current bottom coordinates depending on gravity', () => {
         const slots = OrthoVect.BOTTOM.bottomSlots();
 

@@ -2,7 +2,7 @@ import Coord from "../../app/models/Coord";
 import Cube from "../../app/models/Cube";
 
 
-describe(Cube, () => {
+describe('Cube', () => {
 
     it('should hold a value and have coordinates', () => {
         const coord = new Coord(1, 2, 3);

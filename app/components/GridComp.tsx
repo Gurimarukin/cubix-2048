@@ -50,20 +50,27 @@ export default class GridComp extends React.Component<IProps> {
     }
 
     private cubeInBrowerBasis = (cube: Cube, i: number): JSX.Element => {
-        const toBrowserBasis = new Matrix(
-            [1, 0,  0],
-            [0, 0, -1],
-            [0, 1,  0]
-        );
-        const oldCoord = new Matrix(
-            [cube.coord.x],
-            [-cube.coord.y + 1],
-            [cube.coord.z - 2],
-        );
-        const newCoord = toBrowserBasis.multiply(oldCoord).data;
+        let mat = new Matrix([0]);
+        mat = mat;
+        // const toBrowserBasis = new Matrix(
+        //     [1,  0,  0],
+        //     [0,  0, -1],
+        //     [0, -1,  0]
+        // );
+        // const oldCoord = new Matrix(
+        //     [cube.coord.x],
+        //     [cube.coord.y],
+        //     [cube.coord.z],
+        // );
+        // const newCoord = toBrowserBasis.multiply(oldCoord).data;
         const res = new Cube(
             cube.value,
-            new Coord(newCoord[0][0], newCoord[1][0], newCoord[2][0])
+            // new Coord(newCoord[0][0], newCoord[1][0], newCoord[2][0])
+            new Coord(
+                cube.coord.x,
+                -cube.coord.z + 2,
+                -cube.coord.y + 1
+            )
         );
         return <CubeComp key={i} cube={res} />;
     }

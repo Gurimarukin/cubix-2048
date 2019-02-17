@@ -5,8 +5,6 @@ import Coord from './Coord';
 
 import Matrix from '../lib/Matrix';
 
-import { areClose } from '../utils';
-
 
 export default class OrthoVect extends Vect {
     static RIGHT  = new OrthoVect( 1,  0,  0, 'RIGHT');
@@ -28,9 +26,9 @@ export default class OrthoVect extends Vect {
             OrthoVect.TOP,
             OrthoVect.BOTTOM
         ].find(orthoVect =>
-               areClose(matrix.data[0][0], orthoVect.x)
-            && areClose(matrix.data[1][0], orthoVect.y)
-            && areClose(matrix.data[2][0], orthoVect.z));
+               matrix.data[0][0] === orthoVect.x
+            && matrix.data[1][0] === orthoVect.y
+            && matrix.data[2][0] === orthoVect.z);
     }
 
     private name: string;
@@ -47,13 +45,22 @@ export default class OrthoVect extends Vect {
 
     bottomSlots(): Coord[] {
         const times3 = [0, 1, 2];
-        return flatMap(times3, i => times3.map(j => {
-            if (this === OrthoVect.RIGHT)  return new Coord(2, i, j);
-            if (this === OrthoVect.LEFT)   return new Coord(0, i, j);
-            if (this === OrthoVect.BACK)   return new Coord(i, 2, j);
-            if (this === OrthoVect.FRONT)  return new Coord(i, 0, j);
-            if (this === OrthoVect.TOP)    return new Coord(i, j, 2);
-            /* OrthoVect.BOTTOM */         return new Coord(i, j, 0);
-        }));
+
+        const coord: (i: number) => (j: number) => Coord = (() => {
+            if (this === OrthoVect.RIGHT)
+                return (i: number) => (j: number) => new Coord(2, i, j);
+            if (this === OrthoVect.LEFT)
+                return (i: number) => (j: number) => new Coord(0, i, j);
+            if (this === OrthoVect.BACK)
+                return (i: number) => (j: number) => new Coord(i, 2, j);
+            if (this === OrthoVect.FRONT)
+                return (i: number) => (j: number) => new Coord(i, 0, j);
+            if (this === OrthoVect.TOP)
+                return (i: number) => (j: number) => new Coord(i, j, 2);
+            /* OrthoVect.BOTTOM */
+                return (i: number) => (j: number) => new Coord(i, j, 0);
+        })();
+
+        return flatMap(times3, i => times3.map(coord(i)));
     }
 }

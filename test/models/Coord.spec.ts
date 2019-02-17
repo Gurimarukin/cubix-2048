@@ -1,7 +1,7 @@
 import Coord from '../../app/models/Coord';
 
 
-describe(Coord, () => {
+describe('Coord', () => {
 
     it('should hold 3D coordinates', () => {
         const coord = new Coord(1, 2, 3);

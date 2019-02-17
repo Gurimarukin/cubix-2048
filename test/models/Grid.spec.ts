@@ -7,7 +7,7 @@ import Coord from '../../app/models/Coord';
 import Cube from '../../app/models/Cube';
 
 
-describe(Grid, () => {
+describe('Grid', () => {
 
     it('should hold cubes', () => {
         const grid = Grid.empty();
@@ -22,7 +22,7 @@ describe(Grid, () => {
 });
 
 
-describe(Grid.prototype.upperFree, () => {
+describe('Grid.upperFree', () => {
 
     it('should return the first free slot (BOTTOM gravity and empty colum)', () => {
         const grid = Grid.empty();
@@ -63,7 +63,7 @@ describe(Grid.prototype.upperFree, () => {
 });
 
 
-describe(Grid.prototype.addRandomCubes, () => {
+describe('Grid.addRandomCubes', () => {
 
     it('should return a new Grid with 2 new cubes', () => {
         times(100, () => {

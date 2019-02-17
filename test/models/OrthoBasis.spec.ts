@@ -1,12 +1,12 @@
 import OrthoBasis from '../../app/models/OrthoBasis';
 import OrthoVect from '../../app/models/OrthoVect';
 
-import Matrix from '../../app/lib/Matrix';
+// import Matrix from '../../app/lib/Matrix';
 
 
 describe('OrthoBasis.prototype.rotate', () => {
 
-    it('', () => {
+    it('should correctly change bottom', () => {
         let basis: OrthoBasis = OrthoBasis.identity();
 
         basis = basis.rotateLeft();
@@ -29,23 +29,23 @@ describe('OrthoBasis.prototype.rotate', () => {
 });
 
 
-describe(OrthoBasis.prototype.transformMatrix3D, () => {
+// describe('OrthoBasis.prototype.transformMatrix3D', () => {
 
-    it('should return matrix3D', () => {
-        const basis = OrthoBasis.identity();
-        basis.passageMatrix = new Matrix(
-            [1, 2, 3],
-            [4, 5, 6],
-            [7, 8, 9]
-        );
-        expect(basis.transformMatrix3D())
-        .toBe('matrix3D(1, 2, 3, 0, 4, 5, 6, 0, 7, 8, 9, 0, 0, 0, 0, 1)');
-    });
+//     it('should return matrix3D', () => {
+//         const basis = OrthoBasis.identity();
+//         basis.passageMatrix = new Matrix(
+//             [1, 2, 3],
+//             [4, 5, 6],
+//             [7, 8, 9]
+//         );
+//         expect(basis.transformMatrix3D())
+//         .toBe('matrix3D(1, 2, 3, 0, 4, 5, 6, 0, 7, 8, 9, 0, 0, 0, 0, 1)');
+//     });
 
-});
+// });
 
 
-describe(OrthoBasis.prototype.transform, () => {
+describe('OrthoBasis.prototype.transform', () => {
 
     it('should append tranforms', () => {
         let basis: OrthoBasis = OrthoBasis.identity();
@@ -53,19 +53,19 @@ describe(OrthoBasis.prototype.transform, () => {
 
         basis = basis.rotateLeft();
         expect(basis.transform)
-        .toBe(' rotateY(-90deg)');
+        .toBe(' rotateZ(-90deg)');
 
         basis = basis.rotateDown();
         expect(basis.transform)
-        .toBe(' rotateY(-90deg) rotateX(90deg)');
+        .toBe(' rotateZ(-90deg) rotateY(-90deg)');
 
         basis = basis.rotateRight();
         expect(basis.transform)
-        .toBe(' rotateY(-90deg) rotateX(90deg) rotateY(90deg)');
+        .toBe(' rotateZ(-90deg) rotateY(-90deg) rotateX(90deg)');
 
         basis = basis.rotateUp();
         expect(basis.transform)
-        .toBe(' rotateY(-90deg) rotateX(90deg) rotateY(90deg) rotateX(-90deg)');
+        .toBe(' rotateZ(-90deg) rotateY(-90deg) rotateX(90deg) rotateZ(-90deg)');
     });
 
 });

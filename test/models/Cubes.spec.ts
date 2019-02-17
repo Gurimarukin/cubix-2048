@@ -3,7 +3,7 @@ import Cube from '../../app/models/Cube';
 import Coord from '../../app/models/Coord';
 
 
-describe(Cubes.prototype.cubeByCoord, () => {
+describe('Cubes.cubeByCoord', () => {
 
     it('should return cube for given coordinate if it exists', () => {
         const cubes = new Cubes(new Cube(4, new Coord(3, 1, 2)));
